@@ -1,0 +1,60 @@
+<div class="container">
+    <h1 class="header">Lista de Tarefas</h1>
+    
+    <div class="task-input">
+      <input 
+        *ngIf="!editingTask" 
+        type="text" 
+        [(ngModel)]="newTaskTitle" 
+        placeholder="Insira o Título da Tarefa"
+        class="input-field"
+      />
+      <textarea 
+        *ngIf="!editingTask" 
+        [(ngModel)]="newTaskDescription" 
+        placeholder="Insira a Descrição da Tarefa"
+        class="description-field"
+      ></textarea>
+      <button 
+        *ngIf="!editingTask" 
+        (click)="addTask()" 
+        class="add-button"
+      >Adicionar Tarefa</button>
+      
+      <!-- Campos de edição -->
+      <div *ngIf="editingTask" class="edit-task">
+        <input 
+          type="text" 
+          [(ngModel)]="editingTask.title" 
+          class="input-field"
+        />
+        <textarea 
+          [(ngModel)]="editingTask.description" 
+          class="description-field"
+        ></textarea>
+        <button 
+          (click)="saveTask()" 
+          class="save-button"
+        >Salvar</button>
+        <button 
+          (click)="cancelEdit()" 
+          class="cancel-button"
+        >Cancelar</button>
+      </div>
+    </div>
+  
+    <div class="task-list">
+      <div *ngFor="let task of tasks" class="task-item">
+        <h2 class="task-title">{{ task.title }}</h2>
+        <p class="task-description">{{ task.description }}</p>
+        <button 
+          (click)="editTask(task)" 
+          class="edit-button"
+        >Editar</button>
+        <button 
+          (click)="deleteTask(task.id)" 
+          class="delete-button"
+        >Excluir</button>
+      </div>
+    </div>
+  </div>
